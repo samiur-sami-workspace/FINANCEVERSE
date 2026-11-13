@@ -158,7 +158,7 @@
     <div class="card metric"><div class="label">Unrealized profit / loss</div><div class="value" id="marketPL">$0</div></div>
    </div>
    <div class="dse-board-head"><div><div class="section-head" style="margin:0"><h2>Listed securities</h2><span class="badge">26 LISTED</span></div><p>Live-style board · fictional prices · USD virtual account</p></div><div class="dse-filters"><input id="marketSearch" type="search" placeholder="Search company or ticker..." oninput="renderMarketBoard()"/><select id="marketSector" onchange="renderMarketBoard()"><option value="">All sectors</option></select></div></div>
-   <div class="card dse-table-card"><div class="table-wrap"><table class="dse-table"><thead><tr><th>TRADING CODE</th><th>COMPANY</th><th>SECTOR</th><th>LTP</th><th>CHANGE %</th><th>DAY HIGH</th><th>DAY LOW</th><th>VOLUME</th><th>TRADE</th></tr></thead><tbody id="marketStocks"></tbody></table></div></div>
+   <div class="card dse-table-card"><div class="table-wrap"><table class="dse-table"><thead><tr><th>TRADING CODE</th><th>COMPANY</th><th>SECTOR</th><th>LTP</th><th>CHANGE %</th><th>DAY HIGH</th><th>DAY LOW</th><th>VOLUME</th><th>PROFILE / TRADE</th></tr></thead><tbody id="marketStocks"></tbody></table></div></div>
    <div class="section-head"><h2>Market price history</h2></div><div class="card"><div class="field" style="max-width:320px"><label>Select security</label><select id="chartTicker" onchange="drawMarketChart()"></select></div><div class="chart"><canvas id="marketChart"></canvas></div></div>
   </section>
 
@@ -253,7 +253,7 @@
  </main>
 </div>
 <div id="toast" class="toast"></div>
-<div id="tradeModal" class="modal-back hidden"><div class="modal"><h3 id="tradeTitle">Buy shares</h3><p id="tradeSubtitle">Enter the number of shares.</p><div class="field"><label>Number of shares</label><input id="tradeQty" type="number" min="1" step="1" value="10"/></div><div id="tradeEstimate" class="result">Estimated total: —</div><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:15px"><button class="btn" onclick="closeTrade()">Cancel</button><button class="btn primary" onclick="confirmTrade()">Confirm trade</button></div></div></div>
+<div id="tradeModal" class="modal-back hidden"><div class="modal"><h3 id="tradeTitle">Buy shares</h3><p id="tradeSubtitle">Enter the number of shares.</p><div class="field"><label>Number of shares</label><input id="tradeQty" type="number" min="1" step="1" value="10"/></div><div id="tradeEstimate" class="result">Estimated total: —</div><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:15px"><button class="btn" onclick="closeTrade()">Cancel</button><button class="btn primary" onclick="confirmTrade()">Confirm trade</button></div></div></div><div id="companyProfileModal" class="modal-back hidden" onclick="if(event.target===this)closeCompanyProfile()"><div class="modal company-profile-modal"><div class="profile-modal-top"><div><div class="dse-kicker">FINANCEVERSE · ISSUER RESEARCH</div><h2 id="profileCompanyName">Company profile</h2><p id="profileCompanyMeta">Ticker · Sector</p></div><button class="btn" onclick="closeCompanyProfile()">✕ Close</button></div><div id="companyProfileContent"></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
 <script>
@@ -358,7 +358,7 @@ function renderMarketBoard(){
  if($('dseTurnover'))$('dseTurnover').textContent=fmt(turnover);
  if($('dseBreadth'))$('dseBreadth').textContent=adv+' / '+dec;
  if($('marketDayLabel'))$('marketDayLabel').textContent='DAY '+state.day;
- $('marketStocks').innerHTML=rows.map(({c,p,chg,high,low,volume})=>`<tr><td><b class="ticker">${c.t}</b></td><td class="dse-company">${c.name}</td><td><span class="dse-sector">${c.sector}</span></td><td class="dse-ltp">${fmt(p)}</td><td class="${chg>=0?'up':'down'}">${chg>=0?'+':''}${chg.toFixed(2)}%</td><td>${fmt(high)}</td><td>${fmt(low)}</td><td>${volume.toLocaleString('en-US')}</td><td><button class="mini-btn buy" onclick="openTrade('${c.t}','buy')">Buy</button> <button class="mini-btn" onclick="openTrade('${c.t}','sell')">Sell</button></td></tr>`).join('')||'<tr><td colspan="9" class="empty">No listed company matches your search.</td></tr>';
+ $('marketStocks').innerHTML=rows.map(({c,p,chg,high,low,volume})=>`<tr><td><b class="ticker">${c.t}</b></td><td class="dse-company">${c.name}</td><td><span class="dse-sector">${c.sector}</span></td><td class="dse-ltp">${fmt(p)}</td><td class="${chg>=0?'up':'down'}">${chg>=0?'+':''}${chg.toFixed(2)}%</td><td>${fmt(high)}</td><td>${fmt(low)}</td><td>${volume.toLocaleString('en-US')}</td><td><button class="mini-btn" onclick="openCompanyProfile('${c.t}')">Profile</button> <button class="mini-btn buy" onclick="openTrade('${c.t}','buy')">Buy</button> <button class="mini-btn" onclick="openTrade('${c.t}','sell')">Sell</button></td></tr>`).join('')||'<tr><td colspan="10" class="empty">No listed company matches your search.</td></tr>';
 }
 function render(){
  const mv=marketValue(),cost=investedCost(),gain=mv-cost,ret=cost?gain/cost*100:0,net=state.cash+mv,level=1+Math.floor(state.xp/300);
