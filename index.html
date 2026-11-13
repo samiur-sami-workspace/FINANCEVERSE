@@ -147,7 +147,7 @@
     <div class="dse-index-card"><small>FV ALL SHARE INDEX</small><strong id="dseIndex">10,000.00</strong><span id="dseIndexChange" class="up">▲ 0.00%</span></div>
     <div class="dse-index-card"><small>MARKET TURNOVER</small><strong id="dseTurnover">$0.00</strong><span>Simulated daily value</span></div>
     <div class="dse-index-card"><small>ADVANCERS / DECLINERS</small><strong id="dseBreadth">0 / 0</strong><span>Compared with previous session</span></div>
-    <div class="dse-index-card"><small>LISTED COMPANIES</small><strong>26</strong><span>Across 13 business sectors</span></div>
+    <div class="dse-index-card"><small>LISTED COMPANIES</small><strong>26</strong><span>Across 15 business sectors</span></div>
    </div>
    <div class="grid dse-account-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
     <div class="card metric"><div class="label">Available virtual cash</div><div class="value" id="marketCash">$100,000</div></div>
@@ -317,7 +317,7 @@ function renderMarketBoard(){
  if(!$('marketStocks'))return;
  const search=($('marketSearch')?.value||'').trim().toLowerCase(),sector=$('marketSector')?.value||'';
  if($('marketSector')&&!$('marketSector').dataset.ready){$('marketSector').innerHTML='<option value="">All sectors</option>'+[...new Set(companies.map(c=>c.sector))].sort().map(x=>'<option>'+x+'</option>').join('');$('marketSector').dataset.ready='1'}
- const rows=companies.map((c,i)=>{const p=state.prices[c.t],h=state.history[c.t]||[p],prev=h.length>1?h[h.length-2]:c.base,chg=(p/prev-1)*100,high=Math.max(...h.slice(-1)),low=Math.min(...h.slice(-1)),volume=1200+((state.day*137+i*997)%48700);return {c,p,chg,high,low,volume,turnover:p*volume}}).filter(x=>(!search||(x.c.name+' '+x.c.t).toLowerCase().includes(search))&&(!sector||x.c.sector===sector));
+ const rows=companies.map((c,i)=>{const p=state.prices[c.t],h=state.history[c.t]||[p],prev=h.length>1?h[h.length-2]:c.base,chg=(p/prev-1)*100,high=Math.max(p,prev)*1.01,low=Math.min(p,prev)*.99,volume=1200+((state.day*137+i*997)%48700);return {c,p,chg,high,low,volume,turnover:p*volume}}).filter(x=>(!search||(x.c.name+' '+x.c.t).toLowerCase().includes(search))&&(!sector||x.c.sector===sector));
  const all=companies.map((c)=>{const h=state.history[c.t]||[c.base];return state.prices[c.t]/c.base});
  const index=10000*all.reduce((a,b)=>a+b,0)/all.length,prior=companies.map(c=>{const h=state.history[c.t]||[c.base];return (h.length>1?h[h.length-2]:c.base)/c.base}),prevIndex=10000*prior.reduce((a,b)=>a+b,0)/prior.length,indexChange=prevIndex?(index/prevIndex-1)*100:0;
  const allRows=companies.map((c,i)=>{const p=state.prices[c.t],h=state.history[c.t]||[p],prev=h.length>1?h[h.length-2]:c.base,chg=(p/prev-1)*100,volume=1200+((state.day*137+i*997)%48700);return {p,chg,volume,turnover:p*volume}}),adv=allRows.filter(x=>x.chg>0).length,dec=allRows.filter(x=>x.chg<0).length,turnover=allRows.reduce((a,x)=>a+x.turnover,0);
