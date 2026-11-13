@@ -17,6 +17,11 @@
 @media(max-width:1100px){#app{grid-template-columns:215px 1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stock-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){#auth{grid-template-columns:1fr}.auth-left{min-height:auto;padding:25px 25px 0}.auth-copy{margin:50px 0 20px}.auth-copy h1{font-size:43px}.auth-foot{display:none}.auth-right{padding:20px 20px 40px}.auth-card{padding:25px}#app{grid-template-columns:1fr}.sidebar{height:auto;position:sticky;top:0;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}.sidebrand{padding:0 6px 8px}.sidebrand small{display:none}.sidebrand .logo{font-size:16px}.navlabel,.side-bottom{display:none}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;width:auto;padding:9px 11px;font-size:11px}.nav .ico{display:none}.main{padding:19px 14px 40px}.topbar{align-items:flex-start}.top-title h1{font-size:21px}.top-actions .icon-btn{padding:8px}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}.chart{height:230px}}
 @media(max-width:480px){.grid,.three,.stock-grid,.form-grid{grid-template-columns:1fr}.metric .value{font-size:23px}.topbar{flex-direction:column}.top-actions{width:100%;justify-content:space-between}.chart{height:210px}}
+/* DSE-inspired fictional market board */
+.dse-head{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:21px 23px;border:1px solid #29445d;border-radius:14px;background:linear-gradient(110deg,#102a40,#132237 68%,#102d2b);margin:4px 0 14px}.dse-kicker{font-size:9px;letter-spacing:1.8px;color:var(--teal);font-weight:800}.dse-head h2{font:800 25px Manrope;margin:7px 0 4px}.dse-head p,.dse-board-head p{margin:0;color:var(--muted);font-size:11px}.dse-session{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:10px;color:#a9bacd}.dse-session b{color:#fff}.dse-live{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px #58d6a3}.dse-index-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:13px 0}.dse-index-card{padding:16px;background:#101d2e;border:1px solid var(--line);border-radius:12px;min-width:0}.dse-index-card small{display:block;font-size:9px;letter-spacing:1px;color:var(--muted);font-weight:700}.dse-index-card strong{display:block;font:800 22px Manrope;margin:9px 0 4px;overflow-wrap:anywhere}.dse-index-card span{font-size:10px;color:var(--muted)}.dse-account-grid{margin-bottom:17px}.dse-board-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:24px 0 12px}.dse-board-head .section-head h2{font-size:17px}.dse-filters{display:flex;gap:8px;flex-wrap:wrap}.dse-filters input,.dse-filters select{background:#0b1727;border:1px solid #2d425a;color:var(--text);border-radius:8px;padding:10px 12px;min-width:180px;outline:none}.dse-table-card{padding:0;overflow:hidden}.dse-table{min-width:990px;font-size:11px}.dse-table th{background:#0c1929;color:#92a6bd;position:sticky;top:0}.dse-table td{padding:13px 10px}.dse-table tbody tr:hover{background:#17283d}.dse-table .dse-company{font-weight:700;color:#e7effa;min-width:180px}.dse-table .dse-ltp{font-weight:800;font-variant-numeric:tabular-nums}.dse-sector{font-size:9px;color:#a8bed1;background:#1a2b40;border:1px solid #2a4058;padding:4px 7px;border-radius:20px;white-space:nowrap}
+@media(max-width:900px){.dse-index-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dse-head,.dse-board-head{align-items:flex-start;flex-direction:column}.dse-session{width:100%}}
+@media(max-width:560px){.dse-index-grid{grid-template-columns:1fr 1fr}.dse-index-card{padding:12px}.dse-index-card strong{font-size:18px}.dse-filters,.dse-filters input,.dse-filters select{width:100%}.dse-head{padding:18px}.dse-session .btn{width:100%}.dse-account-grid{grid-template-columns:1fr!important}}
+
 
 
 /* CFO Crisis Lab */
@@ -136,15 +141,22 @@
   </section>
 
   <section id="market" class="section">
-   <div class="section-head"><div><h2>Simulated exchange</h2><p>Trade fictional companies using virtual capital.</p></div><button class="btn primary" onclick="advanceMarket()">Advance one market day ↻</button></div>
-   <div class="notice">All tickers, companies and prices are fictional. Market movements are randomly simulated for learning and are not predictions or investment recommendations.</div>
-   <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-    <div class="card metric"><div class="label">Available cash</div><div class="value" id="marketCash">$100,000</div></div>
-    <div class="card metric"><div class="label">Holdings value</div><div class="value" id="marketValue">$0</div></div>
-    <div class="card metric"><div class="label">Unrealized P/L</div><div class="value" id="marketPL">$0</div></div>
+   <div class="dse-head"><div><div class="dse-kicker">FINANCEVERSE · DHAKA MARKET SIMULATOR</div><h2>Investment Market</h2><p>Exchange-style market board inspired by the Dhaka Stock Exchange layout.</p></div><div class="dse-session"><span class="dse-live"></span> SIMULATED SESSION <b id="marketDayLabel">DAY 1</b><button class="btn primary" onclick="advanceMarket()">Advance market day ↻</button></div></div>
+   <div class="notice">FINANCEVERSE is an educational simulation, not the Dhaka Stock Exchange. All 26 issuers, tickers, prices, volumes and index values below are fictional and generated in-game. Trading uses virtual capital only.</div>
+   <div class="dse-index-grid">
+    <div class="dse-index-card"><small>FV ALL SHARE INDEX</small><strong id="dseIndex">10,000.00</strong><span id="dseIndexChange" class="up">▲ 0.00%</span></div>
+    <div class="dse-index-card"><small>MARKET TURNOVER</small><strong id="dseTurnover">$0.00</strong><span>Simulated daily value</span></div>
+    <div class="dse-index-card"><small>ADVANCERS / DECLINERS</small><strong id="dseBreadth">0 / 0</strong><span>Compared with previous session</span></div>
+    <div class="dse-index-card"><small>LISTED COMPANIES</small><strong>26</strong><span>Across 13 business sectors</span></div>
    </div>
-   <div class="section-head"><h2>Listed companies</h2><span class="muted" style="font-size:11px">USD · whole shares</span></div><div class="stock-grid" id="marketStocks"></div>
-   <div class="section-head"><h2>Market price history</h2></div><div class="card"><div class="field" style="max-width:260px"><label>Select security</label><select id="chartTicker" onchange="drawMarketChart()"></select></div><div class="chart"><canvas id="marketChart"></canvas></div></div>
+   <div class="grid dse-account-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+    <div class="card metric"><div class="label">Available virtual cash</div><div class="value" id="marketCash">$100,000</div></div>
+    <div class="card metric"><div class="label">Holdings market value</div><div class="value" id="marketValue">$0</div></div>
+    <div class="card metric"><div class="label">Unrealized profit / loss</div><div class="value" id="marketPL">$0</div></div>
+   </div>
+   <div class="dse-board-head"><div><div class="section-head" style="margin:0"><h2>Listed securities</h2><span class="badge">26 LISTED</span></div><p>Live-style board · fictional prices · USD virtual account</p></div><div class="dse-filters"><input id="marketSearch" type="search" placeholder="Search company or ticker..." oninput="renderMarketBoard()"/><select id="marketSector" onchange="renderMarketBoard()"><option value="">All sectors</option></select></div></div>
+   <div class="card dse-table-card"><div class="table-wrap"><table class="dse-table"><thead><tr><th>TRADING CODE</th><th>COMPANY</th><th>SECTOR</th><th>LTP</th><th>CHANGE %</th><th>DAY HIGH</th><th>DAY LOW</th><th>VOLUME</th><th>TRADE</th></tr></thead><tbody id="marketStocks"></tbody></table></div></div>
+   <div class="section-head"><h2>Market price history</h2></div><div class="card"><div class="field" style="max-width:320px"><label>Select security</label><select id="chartTicker" onchange="drawMarketChart()"></select></div><div class="chart"><canvas id="marketChart"></canvas></div></div>
   </section>
 
   <section id="exchange" class="section">
@@ -245,13 +257,40 @@
 const $=id=>document.getElementById(id);
 const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(Number.isFinite(n)?n:0);
 const val=id=>Number($(id)?.value);
-const companies=[{t:'ALP',name:'Alpha Technologies',sector:'Technology',base:120,dividend:.004},{t:'BRV',name:'Bravo Consumer',sector:'Consumer',base:85,dividend:.028},{t:'CRN',name:'Crown Energy',sector:'Energy',base:52,dividend:.045},{t:'DLT',name:'Delta Healthcare',sector:'Healthcare',base:210,dividend:.012},{t:'EVR',name:'Evergreen Foods',sector:'Consumer',base:34,dividend:.035},{t:'FLX',name:'Flexi Finance',sector:'Financials',base:145,dividend:.02}];
+const companies=[
+ {t:'MKI',name:'Mokbul Industries',sector:'Industrials',base:128,dividend:.018},
+ {t:'BKT',name:'Bekkol Textile',sector:'Textiles',base:76,dividend:.025},
+ {t:'DBF',name:'Dumba Foods',sector:'Food & Beverage',base:54,dividend:.03},
+ {t:'MDG',name:'Modon Group',sector:'Conglomerate',base:164,dividend:.015},
+ {t:'MMC',name:'Mota-Mama Ceramics',sector:'Ceramics',base:92,dividend:.022},
+ {t:'CCO',name:'Chipichapa & Co.',sector:'Trading',base:61,dividend:.012},
+ {t:'KBM',name:'Kabila Motors',sector:'Automobiles',base:215,dividend:.01},
+ {t:'PSK',name:'Protein Shakes',sector:'Food & Beverage',base:43,dividend:.02},
+ {t:'BFR',name:'Beast Fries',sector:'Food & Beverage',base:38,dividend:.018},
+ {t:'TTP',name:'Toton Popcorn',sector:'Food & Beverage',base:29,dividend:.025},
+ {t:'TLF',name:'Taleban Fragrances',sector:'Consumer Goods',base:118,dividend:.016},
+ {t:'PTT',name:'Potaka Textile',sector:'Textiles',base:83,dividend:.024},
+ {t:'MEX',name:'Molnar Exports',sector:'Export',base:145,dividend:.02},
+ {t:'MPH',name:'Mother Pharma',sector:'Pharmaceuticals',base:238,dividend:.014},
+ {t:'KHI',name:'Kholil Industries',sector:'Industrials',base:105,dividend:.019},
+ {t:'BCL',name:'Boka Cola',sector:'Beverages',base:67,dividend:.028},
+ {t:'RPH',name:'Rohmot Pharma',sector:'Pharmaceuticals',base:186,dividend:.017},
+ {t:'BGT',name:'Badda-Gulshan-Tobacco',sector:'Consumer Goods',base:132,dividend:.012},
+ {t:'TUT',name:'Tuno Textiles',sector:'Textiles',base:72,dividend:.023},
+ {t:'BZC',name:'Bizli Cables',sector:'Engineering',base:194,dividend:.018},
+ {t:'BGB',name:'Bangu Bank',sector:'Banking',base:88,dividend:.035},
+ {t:'BDB',name:'Badda Bank',sector:'Banking',base:94,dividend:.032},
+ {t:'GRB',name:'Gorib Bank',sector:'Banking',base:58,dividend:.03},
+ {t:'SAG',name:"Samiur's Agro",sector:'Agriculture',base:112,dividend:.026},
+ {t:'SFK',name:'Sogir Farms Kitchen',sector:'Agriculture & Food',base:49,dividend:.022},
+ {t:'NBB',name:'Nazim Bakery & Biscuits',sector:'Food & Beverage',base:64,dividend:.027}
+];
 const initial=()=>({cash:100000,holdings:{},shorts:{},orders:[],options:[],dividends:[],totalDividends:0,xp:0,completed:[],activity:[],transactions:[],day:1,prices:Object.fromEntries(companies.map(c=>[c.t,c.base])),history:Object.fromEntries(companies.map(c=>[c.t,[c.base]])),displayName:'Guest Investor',cfo:null});
 let state=initial(),mode='login',tradeTicket=null,charts={},supabaseClient=null,currentUser=null,saveTimer=null;
 const cloudConfigured=!!(window.FINANCEVERSE_CONFIG&&FINANCEVERSE_CONFIG.SUPABASE_URL&&FINANCEVERSE_CONFIG.SUPABASE_ANON_KEY&&!FINANCEVERSE_CONFIG.SUPABASE_URL.includes('YOUR_')&&!FINANCEVERSE_CONFIG.SUPABASE_ANON_KEY.includes('YOUR_'));
 if(cloudConfigured&&window.supabase?.createClient){supabaseClient=window.supabase.createClient(FINANCEVERSE_CONFIG.SUPABASE_URL,FINANCEVERSE_CONFIG.SUPABASE_ANON_KEY)}
 function persist(){const storageKey=currentUser?'fv_user_state_'+currentUser.id:'fv_guest_state';localStorage.setItem(storageKey,JSON.stringify(state));if(currentUser&&supabaseClient){$('syncStatus').textContent='SAVING…';clearTimeout(saveTimer);saveTimer=setTimeout(saveCloudState,650)}render();if($('exOrders'))renderExchange()}
-function normalizeState(s){state={...initial(),...(s||{}),holdings:s?.holdings||{},shorts:s?.shorts||{},orders:s?.orders||[],options:s?.options||[],dividends:s?.dividends||[],totalDividends:s?.totalDividends||0,completed:s?.completed||[],activity:s?.activity||[],transactions:s?.transactions||[],history:s?.history||{}};companies.forEach(c=>{if(!state.history[c.t]?.length)state.history[c.t]=[state.prices[c.t]||c.base]})}
+function normalizeState(s){const base=initial();state={...base,...(s||{}),holdings:s?.holdings||{},shorts:s?.shorts||{},orders:s?.orders||[],options:s?.options||[],dividends:s?.dividends||[],totalDividends:s?.totalDividends||0,completed:s?.completed||[],activity:s?.activity||[],transactions:s?.transactions||[],prices:{...base.prices,...(s?.prices||{})},history:{...base.history,...(s?.history||{})}};companies.forEach(c=>{if(!state.history[c.t]?.length)state.history[c.t]=[state.prices[c.t]||c.base]})}
 function load(){try{localStorage.removeItem('fv_preview_state');normalizeState(JSON.parse(localStorage.getItem('fv_guest_state'))||initial())}catch(e){normalizeState(initial())}}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
 function authMode(m){mode=m;const recovery=m==='recovery';$('tabLogin').classList.toggle('active',m==='login');$('tabRegister').classList.toggle('active',m==='register');$('authTabs').classList.toggle('hidden',recovery);$('authEmailField').classList.toggle('hidden',recovery);$('nameField').classList.toggle('hidden',m!=='register');$('authTitle').textContent=recovery?'Choose a new password':m==='login'?'Sign in to your lab':'Create your account';$('authSubtitle').textContent=recovery?'Enter a new password for your FINANCEVERSE account.':m==='login'?'Continue building your financial intelligence.':'Start your finance learning journey.';$('authPasswordLabel').textContent=recovery?'New password':'Password';$('authPassword').placeholder='At least 8 characters';$('authPassword').autocomplete=recovery?'new-password':'current-password';$('authSubmit').textContent=recovery?'Update password':m==='login'?'Sign in':'Create account';$('resetPasswordBtn').style.display=m==='login'?'block':'none';$('authError').textContent=''}
@@ -267,19 +306,34 @@ function continueToDashboard(){$('rules-screen').classList.add('hidden');$('app'
 async function logout(){if(supabaseClient){const {error}=await supabaseClient.auth.signOut();if(error){toast('Sign-out error: '+error.message);return}}currentUser=null;state=initial();$('app').classList.add('hidden');$('auth').classList.remove('hidden');toast('You have signed out')}
 async function initAuth(){if(!supabaseClient)return;supabaseClient.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;if(event==='PASSWORD_RECOVERY'){$('app').classList.add('hidden');$('auth').classList.remove('hidden');authMode('recovery');}});const recoveryLink=location.hash.includes('type=recovery')||new URLSearchParams(location.search).get('type')==='recovery';if(recoveryLink){$('app').classList.add('hidden');$('auth').classList.remove('hidden');authMode('recovery');return}const {data:{session}}=await supabaseClient.auth.getSession();if(session?.user){currentUser=session.user;try{await loadCloudState();showApp(currentUser.user_metadata?.display_name||currentUser.email?.split('@')[0]||'Investor')}catch(e){toast('Could not load cloud workspace: '+e.message)}}}
 const pages={crisis:['CFO Crisis Lab','Lead a distressed company through financial calculations and high-stakes rescue decisions.'],overview:['Overview','Your decisions, capital and progress — all in one place.'],market:['Investment market','Explore fictional securities and manage virtual capital.'],exchange:['Trading terminal','Practice bids, short selling, options and dividend investing.'],portfolio:['My portfolio','Review positions, performance and simulated risk.'],corporate:['Corporate finance','Evaluate projects and understand the cost of capital.'],valuation:['Valuation lab','Estimate enterprise and equity value using DCF.'],cfo:['CFO simulator','Make strategic financing decisions.'],ratios:['Financial analysis','Interpret financial statements through key ratios.'],academy:['Academy & missions','Turn financial knowledge into practical skills.'],settings:['Settings','Manage your profile and simulation progress.']};
-function showPage(p){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===p));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===p));$('pageTitle').textContent=pages[p][0];$('pageDesc').textContent=pages[p][1];if(p==='market')drawMarketChart();if(p==='portfolio')drawPositionChart();if(p==='exchange')renderExchange()}
+function showPage(p){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===p));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===p));$('pageTitle').textContent=pages[p][0];$('pageDesc').textContent=pages[p][1];if(p==='market'){drawMarketChart();renderMarketBoard();}if(p==='portfolio')drawPositionChart();if(p==='exchange')renderExchange()}
 document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function marketValue(){return Object.entries(state.holdings).reduce((s,[t,h])=>s+h.shares*state.prices[t],0)}
 function investedCost(){return Object.values(state.holdings).reduce((s,h)=>s+h.shares*h.avg,0)}
 function pl(){return marketValue()-investedCost()}
 function addActivity(type,detail,amount){state.activity.unshift({day:state.day,type,detail,amount});state.activity=state.activity.slice(0,18)}
 function stockCard(c,compact=false){let p=state.prices[c.t],hist=state.history[c.t]||[p],chg=hist.length>1?(p/hist[hist.length-2]-1)*100:0;return `<div class="stock"><div class="stock-head"><span class="ticker">${c.t}</span><span class="badge">${c.sector}</span></div><div class="stock-name">${c.name}</div><div class="stock-price">${fmt(p)}</div><div class="stock-change ${chg>=0?'up':'down'}">${chg>=0?'▲':'▼'} ${Math.abs(chg).toFixed(2)}% <span class="muted">· last market day</span></div>${compact?'':`<div class="stock-actions"><button class="mini-btn buy" onclick="openTrade('${c.t}','buy')">Buy</button><button class="mini-btn" onclick="openTrade('${c.t}','sell')">Sell</button></div>`}</div>`}
+function renderMarketBoard(){
+ if(!$('marketStocks'))return;
+ const search=($('marketSearch')?.value||'').trim().toLowerCase(),sector=$('marketSector')?.value||'';
+ if($('marketSector')&&!$('marketSector').dataset.ready){$('marketSector').innerHTML='<option value="">All sectors</option>'+[...new Set(companies.map(c=>c.sector))].sort().map(x=>'<option>'+x+'</option>').join('');$('marketSector').dataset.ready='1'}
+ const rows=companies.map((c,i)=>{const p=state.prices[c.t],h=state.history[c.t]||[p],prev=h.length>1?h[h.length-2]:c.base,chg=(p/prev-1)*100,high=Math.max(...h.slice(-1)),low=Math.min(...h.slice(-1)),volume=1200+((state.day*137+i*997)%48700);return {c,p,chg,high,low,volume,turnover:p*volume}}).filter(x=>(!search||(x.c.name+' '+x.c.t).toLowerCase().includes(search))&&(!sector||x.c.sector===sector));
+ const all=companies.map((c)=>{const h=state.history[c.t]||[c.base];return state.prices[c.t]/c.base});
+ const index=10000*all.reduce((a,b)=>a+b,0)/all.length,prior=companies.map(c=>{const h=state.history[c.t]||[c.base];return (h.length>1?h[h.length-2]:c.base)/c.base}),prevIndex=10000*prior.reduce((a,b)=>a+b,0)/prior.length,indexChange=prevIndex?(index/prevIndex-1)*100:0;
+ const allRows=companies.map((c,i)=>{const p=state.prices[c.t],h=state.history[c.t]||[p],prev=h.length>1?h[h.length-2]:c.base,chg=(p/prev-1)*100,volume=1200+((state.day*137+i*997)%48700);return {p,chg,volume,turnover:p*volume}}),adv=allRows.filter(x=>x.chg>0).length,dec=allRows.filter(x=>x.chg<0).length,turnover=allRows.reduce((a,x)=>a+x.turnover,0);
+ if($('dseIndex'))$('dseIndex').textContent=index.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+ if($('dseIndexChange')){$('dseIndexChange').textContent=(indexChange>=0?'▲ ':'▼ ')+Math.abs(indexChange).toFixed(2)+'%';$('dseIndexChange').className=indexChange>=0?'up':'down'}
+ if($('dseTurnover'))$('dseTurnover').textContent=fmt(turnover);
+ if($('dseBreadth'))$('dseBreadth').textContent=adv+' / '+dec;
+ if($('marketDayLabel'))$('marketDayLabel').textContent='DAY '+state.day;
+ $('marketStocks').innerHTML=rows.map(({c,p,chg,high,low,volume})=>`<tr><td><b class="ticker">${c.t}</b></td><td class="dse-company">${c.name}</td><td><span class="dse-sector">${c.sector}</span></td><td class="dse-ltp">${fmt(p)}</td><td class="${chg>=0?'up':'down'}">${chg>=0?'+':''}${chg.toFixed(2)}%</td><td>${fmt(high)}</td><td>${fmt(low)}</td><td>${volume.toLocaleString('en-US')}</td><td><button class="mini-btn buy" onclick="openTrade('${c.t}','buy')">Buy</button> <button class="mini-btn" onclick="openTrade('${c.t}','sell')">Sell</button></td></tr>`).join('')||'<tr><td colspan="9" class="empty">No listed company matches your search.</td></tr>';
+}
 function render(){
  const mv=marketValue(),cost=investedCost(),gain=mv-cost,ret=cost?gain/cost*100:0,net=state.cash+mv,level=1+Math.floor(state.xp/300);
  ['mCash','marketCash'].forEach(id=>$(id).textContent=fmt(state.cash));$('mPortfolio').textContent=fmt(mv);$('mNet').textContent=fmt(net);$('mPL').textContent=fmt(gain);$('mPL').className='value '+(gain>=0?'up':'down');$('mReturn').textContent=`${ret.toFixed(2)}% return on invested cost`;$('marketValue').textContent=fmt(mv);$('marketPL').textContent=fmt(gain);$('marketPL').className='value '+(gain>=0?'up':'down');
  $('pCost').textContent=fmt(cost);$('pValue').textContent=fmt(mv);$('pGain').textContent=fmt(gain);$('pGain').className='value '+(gain>=0?'up':'down');$('pReturn').textContent=ret.toFixed(2)+'%';
  $('topLevel').textContent=level;$('topXP').textContent=state.xp+' XP';$('sideLevel').textContent=`Level ${level} · ${level<3?'Explorer':level<6?'Analyst':'Strategist'}`;
- $('overviewStocks').innerHTML=companies.slice(0,3).map(c=>stockCard(c,true)).join('');$('marketStocks').innerHTML=companies.map(c=>stockCard(c)).join('');
+ $('overviewStocks').innerHTML=companies.slice(0,3).map(c=>stockCard(c,true)).join('');renderMarketBoard();
  $('positions').innerHTML=Object.entries(state.holdings).filter(([t,h])=>h.shares>0).map(([t,h])=>{let p=state.prices[t],v=h.shares*p,g=h.shares*(p-h.avg);return `<tr><td><b>${t}</b> · ${companies.find(c=>c.t===t).name}</td><td>${h.shares}</td><td>${fmt(h.avg)}</td><td>${fmt(p)}</td><td>${fmt(v)}</td><td class="${g>=0?'up':'down'}">${fmt(g)}</td><td><button class="mini-btn" onclick="openTrade('${t}','sell')">Sell</button></td></tr>`}).join('')||'<tr><td colspan="7" class="empty">No open positions. Visit the market to make your first investment.</td></tr>';
  $('transactions').innerHTML=state.transactions.map(x=>`<tr><td>Day ${x.day}</td><td>${x.side.toUpperCase()}</td><td>${x.ticker}</td><td>${x.qty}</td><td>${fmt(x.price)}</td><td>${fmt(x.amount)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">No transactions yet.</td></tr>';
  $('activityList').innerHTML=state.activity.map(a=>`<div class="activity-row"><div><b>${a.type}</b><small>Day ${a.day} · ${a.detail}</small></div><b>${a.amount||''}</b></div>`).join('')||'<div class="empty">Your investment and learning activity will appear here.</div>';
