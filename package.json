@@ -1,0 +1,59 @@
+{
+  "name": "financeverse",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FINANCEVERSE — an interactive financial education and simulation platform",
+  "main": "electron/main.cjs",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "mobile:prepare": "node scripts/prepare-mobile.cjs",
+    "android:init": "npm run mobile:prepare && cap add android",
+    "android:sync": "npm run mobile:prepare && cap sync android",
+    "android:open": "cap open android",
+    "android:debug": "npm run android:sync && cd android && gradlew.bat assembleDebug",
+    "desktop:dev": "electron .",
+    "desktop:build": "electron-builder --win nsis",
+    "desktop:dir": "electron-builder --win dir"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/core": "^8.6.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.samiur.financeverse",
+    "productName": "FINANCEVERSE",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "index.html",
+      "config.js",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
