@@ -1,0 +1,12 @@
+{
+  "appId": "com.samiur.financeverse",
+  "appName": "FINANCEVERSE",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#080d18"
+  }
+}
